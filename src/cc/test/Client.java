@@ -3,6 +3,8 @@ package cc.test;
 import cc.test.commons.Delete;
 import cc.test.commons.Get;
 import cc.test.commons.Put;
+import cc.test.messagestore.MsgGet;
+import cc.test.messagestore.MsgPut;
 import io.atomix.catalyst.transport.Address;
 import io.atomix.catalyst.transport.netty.NettyTransport;
 import io.atomix.copycat.client.CopycatClient;
@@ -48,7 +50,8 @@ public class Client {
         cf.join();
 
         System.out.println("Joined, awaiting commands");
-        System.out.println("Usage: (1) put [key] [val] (2) get [key] (3) del [key] (4) exit ");
+//        System.out.println("Usage: (1) put [key] [val] (2) get [key] (3) del [key] (4) exit ");
+        System.out.println("Usage: (1) put [message] (2) get (3) exit ");
         while(true) {
             Scanner scanner = new Scanner( System.in );
             String command_line = scanner.nextLine();
@@ -57,25 +60,28 @@ public class Client {
 	    System.out.println(command_line);
 	    System.out.println(cmds[0]);
 
-            if(cmds[0].equals("put")){
-	       System.out.println("client received put command"); 
-               CompletableFuture<Object> future = client.submit(new Put(cmds[1], cmds[2]));
-            }
-            else if(cmds[0].equals("get")){
-	       System.out.println("client received get command"); 
-               client.submit(new Get(cmds[1])).thenAccept(result -> System.out.println(cmds[1] + " is: " + result));
-            }
-            else if(cmds[0].equals("del")) {
+	    if(cmds[0].equals("put")){
+	        System.out.println("client received put command");
+	        CompletableFuture<Object> future = client.submit(new MsgPut(cmds[1]));
+//	        CompletableFuture<Object> future = client.submit(new Put(cmds[1], cmds[2]));
+	    }
+	    else if(cmds[0].equals("get")){
+	        System.out.println("client received get command");
+	        client.submit(new MsgGet()).thenAccept(result -> System.out.println(cmds[1] + " is: " + result));
+//	        client.submit(new Get(cmds[1])).thenAccept(result -> System.out.println(cmds[1] + " is: " + result));
+	    }
+/*	    else if(cmds[0].equals("del")) {
 	       System.out.println("client received del command"); 
-               client.submit(new Delete(cmds[1])).thenRun(() -> System.out.println(cmds[1] + " has been deleted"));
-            }
-            else if(cmds[0].equals("exit") ){
+	       client.submit(new Delete(cmds[1])).thenRun(() -> System.out.println(cmds[1] + " has been deleted"));
+	    }
+*/	    else if(cmds[0].equals("exit") ){
 	       System.out.println("client received exit command"); 
-               break;
-            }
-            else{
-               System.out.println("Usage: (1) put [key] [val] (2) get [key] (3) del [key] (4) exit ");
-            }
+	       break;
+	    }
+	    else{
+//	        System.out.println("Usage: (1) put [key] [val] (2) get [key] (3) del [key] (4) exit ");
+            System.out.println("Usage: (1) put [message] (2) get (3) exit ");
+	    }
 
 /*            try {
                 Object result = future.get();

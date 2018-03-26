@@ -1,5 +1,6 @@
 package cc.test;
 
+import cc.test.messagestore.MessageStore;
 import io.atomix.catalyst.transport.Address;
 import io.atomix.catalyst.transport.netty.NettyTransport;
 import io.atomix.copycat.client.CopycatClient;
@@ -15,6 +16,7 @@ import java.io.File;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.function.Supplier;
 
 import cc.test.commons.*;
 
@@ -96,6 +98,9 @@ public class Server {
         System.out.println("Server [" + serverName + "] is starting now.");
         // Building a server
         CopycatServer.Builder builder = CopycatServer.builder(serverAddr);
+
+        Supplier<MessageStore> i = () -> new MessageStore( new Server() );
+
         builder.withStateMachine(KeyValueStore::new);
 
         builder.withTransport(NettyTransport.builder()
@@ -110,6 +115,11 @@ public class Server {
                 );
 
         return builder.build();
+    }
+
+    public void MessageHandler(Object message){
+        System.out.println("Handling message now:");
+        System.out.println(message);
     }
 
 }
