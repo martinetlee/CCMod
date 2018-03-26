@@ -10,9 +10,11 @@ import io.atomix.copycat.client.CopycatClient;
 import io.atomix.copycat.server.CopycatServer;
 import io.atomix.copycat.server.storage.Storage;
 import io.atomix.copycat.server.storage.StorageLevel;
+import io.atomix.copycat.server.StateMachine;
 
 import java.io.File;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 
 import static java.lang.Thread.sleep;
 
@@ -53,7 +55,6 @@ public class Main {
             System.out.println(srvr + " has bootstrapped a cluster");
         });
         server.join(clusterAddress).thenAccept(srvr -> System.out.println(srvr + " has joined the cluster"));
-
 
         CopycatServer server1 = startServer("server 1");
         CopycatServer server2 = startServer("server 2");
@@ -152,8 +153,10 @@ public class Main {
         s_id++;
         CopycatServer.Builder builder = CopycatServer.builder(address);
 
-        builder.withStateMachine(KeyValueStore::new);
-        //builder.withStateMachine(new KeyValueStore());
+        Supplier<StateMachine> i  = ()-> new KeyValueStore();
+        //builder.withStateMachine(KeyValueStore::new);
+        builder.withStateMachine(i);
+        //builder.withStateMachine();
 
 
         builder.withTransport(NettyTransport.builder()
