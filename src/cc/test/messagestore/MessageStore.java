@@ -9,23 +9,32 @@ import java.util.*;
 
 
 /**
- * Created by sungshil on 2018/3/19.
+ * Created by sungshil on 2018/3/24.
  */
 public class MessageStore extends StateMachine {
-
+    private int designatedLeader;
     private Server server;
     private Set<ServerSession> listeners = new HashSet<>();
     private Commit<MsgPut> last_commit = null;
 
-    public MessageStore(Server server){
+    public MessageStore(Server server, int designatedLeader){
         this.server = server;
+        this.designatedLeader = designatedLeader;
     }
 
-
+    public void listen(Commit<MsgListen> commit){
+        listeners.add(commit.session());
+        commit.release();
+    }
 
     public void put(Commit<MsgPut> commit) {
         //Commit<Put> put = storage.put(commit.operation().key, commit);
         last_commit = commit;
+
+        listeners.forEach(session -> {
+            session.publish("msgReceived", commit.operation().message);
+        });
+
         server.MessageHandler(last_commit.operation().message);
     }
 

@@ -99,9 +99,9 @@ public class Server {
         // Building a server
         CopycatServer.Builder builder = CopycatServer.builder(serverAddr);
 
-        Supplier<MessageStore> i = () -> new MessageStore( new Server() );
+        Supplier<StateMachine> i = () -> new MessageStore( new Server() , 1);
 
-        builder.withStateMachine(KeyValueStore::new);
+        builder.withStateMachine(i);
 
         builder.withTransport(NettyTransport.builder()
                 .withThreads(4)
@@ -109,7 +109,7 @@ public class Server {
 
         builder.withName(serverName)
                 .withStorage(Storage.builder()
-                        .withDirectory(new File("logs/"+serverName))
+                        .withDirectory(new File("/tmp/logs/"+serverName))
                         .withStorageLevel(StorageLevel.DISK)
                         .build()
                 );

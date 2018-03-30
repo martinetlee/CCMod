@@ -4,6 +4,7 @@ import cc.test.commons.Delete;
 import cc.test.commons.Get;
 import cc.test.commons.Put;
 import cc.test.messagestore.MsgGet;
+import cc.test.messagestore.MsgListen;
 import cc.test.messagestore.MsgPut;
 import io.atomix.catalyst.transport.Address;
 import io.atomix.catalyst.transport.netty.NettyTransport;
@@ -48,6 +49,13 @@ public class Client {
 
         System.out.print("Client ready, joining now...");
         cf.join();
+
+
+        client.onEvent("msgReceived", event -> {
+            System.out.println("Server has received: "+event );
+        });
+
+        client.submit( new MsgListen() );
 
         System.out.println("Joined, awaiting commands");
 //        System.out.println("Usage: (1) put [key] [val] (2) get [key] (3) del [key] (4) exit ");

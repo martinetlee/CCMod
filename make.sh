@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #sigar=/home/$USER/packages/sigar/bindings/java/sigar-bin/lib
-base=/home/$USER/CCTest
+base=/home/$USER/CCMod
 
 SRC=$base/src
 LIB=$base/lib
