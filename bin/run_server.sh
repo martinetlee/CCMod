@@ -5,9 +5,26 @@
 
 getIP(){
 main="false"
-if [ "$1" == "green10" ]; then
+if [ "$1" == "green01" ]; then
+	ip="10.0.2.1"
+if [ "$1" == "green02" ]; then
+	ip="10.0.2.2"
+if [ "$1" == "green03" ]; then
+	ip="10.0.2.3"
+if [ "$1" == "green04" ]; then
+	ip="10.0.2.4"
+if [ "$1" == "green05" ]; then
+	ip="10.0.2.5"
+if [ "$1" == "green06" ]; then
+	ip="10.0.2.6"
+if [ "$1" == "green07" ]; then
+	ip="10.0.2.7"
+if [ "$1" == "green08" ]; then
+	ip="10.0.2.8"
+if [ "$1" == "green09" ]; then
+	ip="10.0.2.9"
+elif [ "$1" == "green10" ]; then
 	ip="10.0.2.10"
-	main="true"
 elif [ "$1" == "green11"  ]; then
 	ip="10.0.2.11"
 elif [ "$1" == "green12"  ]; then
@@ -19,6 +36,11 @@ elif [ "$1" == "green14"  ]; then
 elif [ "$1" == "green15"  ]; then
 	ip="10.0.2.15"
 fi
+
+if [ "$1" == "green01" ]; then
+	main="true"
+fi
+
 }
 
 base=/home/$USER/CCTest
