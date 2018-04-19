@@ -1,11 +1,12 @@
-package cc.test.messagestore;
+package cc.test.example3.messagestore;
 
-import cc.test.Server;
+import cc.test.example3.Server;
 import io.atomix.copycat.server.Commit;
 import io.atomix.copycat.server.StateMachine;
 import io.atomix.copycat.server.session.ServerSession;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**

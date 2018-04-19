@@ -1,24 +1,15 @@
-package cc.test;
+package cc.test.example2;
 
-import cc.test.messagestore.MessageStore;
+import cc.test.example2.messagestore.MessageStore;
 import io.atomix.catalyst.transport.Address;
 import io.atomix.catalyst.transport.netty.NettyTransport;
-import io.atomix.copycat.client.CopycatClient;
-import io.atomix.copycat.server.Commit;
 import io.atomix.copycat.server.CopycatServer;
 import io.atomix.copycat.server.StateMachine;
-import io.atomix.copycat.server.StateMachineExecutor;
 import io.atomix.copycat.server.storage.Storage;
-import io.atomix.catalyst.transport.*;
 import io.atomix.copycat.server.storage.StorageLevel;
 
 import java.io.File;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Supplier;
-
-import cc.test.commons.*;
 
 import static java.lang.Thread.sleep;
 

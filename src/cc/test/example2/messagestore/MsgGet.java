@@ -1,4 +1,4 @@
-package cc.test.messagestore;
+package cc.test.example2.messagestore;
 
 import io.atomix.copycat.Query;
 

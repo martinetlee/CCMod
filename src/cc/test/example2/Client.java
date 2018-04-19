@@ -1,15 +1,14 @@
-package cc.test;
+package cc.test.example2;
 
-import cc.test.commons.Delete;
-import cc.test.commons.Get;
-import cc.test.commons.Put;
-import cc.test.messagestore.MsgGet;
-import cc.test.messagestore.MsgListen;
-import cc.test.messagestore.MsgPut;
+import cc.test.example1.commons.Delete;
+import cc.test.example1.commons.Get;
+import cc.test.example1.commons.Put;
+import cc.test.example2.messagestore.MsgGet;
+import cc.test.example2.messagestore.MsgListen;
+import cc.test.example2.messagestore.MsgPut;
 import io.atomix.catalyst.transport.Address;
 import io.atomix.catalyst.transport.netty.NettyTransport;
 import io.atomix.copycat.client.CopycatClient;
-import io.atomix.copycat.server.CopycatServer;
 
 import java.util.Scanner;
 import java.util.concurrent.CompletableFuture;

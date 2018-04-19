@@ -1,4 +1,4 @@
-package cc.test.commons;
+package cc.test.example1.commons;
 
 import io.atomix.copycat.server.Commit;
 import io.atomix.copycat.server.StateMachine;
